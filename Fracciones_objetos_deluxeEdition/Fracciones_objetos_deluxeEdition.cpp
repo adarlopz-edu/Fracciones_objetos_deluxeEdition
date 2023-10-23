@@ -196,6 +196,26 @@ bool validarInput(string fraccion, int& numerador, int& denominador) {
     return true;
 }
 
+bool validarInputD(string fraccion, int& numerador, int& denominador) {
+    int posicionSlash = fraccion.find('/'); //esta funcion en que posicion del string se encuentra un /
+    if (posicionSlash == 0 || posicionSlash == fraccion.length() - 1) { // el / no puede estar en la posicion 0, ni puede estar al final
+        cout << "Introduce una fraccion correcta" << endl;
+        return false;
+    }
+
+    numerador = stoi(fraccion.substr(0, posicionSlash)); //separa el string en formator fraccion, aqui obtiene el numerador (desde la posicion 0 hasta el /)
+    denominador = stoi(fraccion.substr(posicionSlash + 1)); //y aqui separa desde la posicion del slash lo que haya despues
+    if (denominador == 0) {
+        cout << "Math Error" << endl; // si en cualquier momento el denominador es 0 dale cuello
+        return false;
+    }
+
+    if (numerador == 0) {
+        cout << "Math Error" << endl;
+    }
+    return true;
+}
+
 int main() {
 
     cout << "FRACCIONES CON OBJETOS" << endl << endl;
@@ -268,7 +288,7 @@ int main() {
             cout << "Ingrese la segunda fraccion: ";
             string segundaFraccion;
             cin >> segundaFraccion;
-            if (validarInput(segundaFraccion, numerador2, denominador2)) {
+            if (validarInputD(segundaFraccion, numerador2, denominador2)) {
                 Fraccion fraccion1(numerador1, denominador1);
                 Fraccion fraccion2(numerador2, denominador2);
                 fraccion1.division(fraccion2);
